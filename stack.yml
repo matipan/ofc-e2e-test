@@ -1,0 +1,22 @@
+provider:
+  name: faas
+  gateway: http://openfaas.matiaspan.me
+functions:
+  e2e-test:
+    lang: golang-http
+    handler: ./
+    image: matipan/e2e-test:1.0
+    environment:
+      functionOwner: matipan
+      functionRepo: hello-world-go
+      goFilePath: ./hello-world/handler.go
+      secret_path: /var/openfaas/secrets/
+      functionURL: https://matipan.o6s.io/hello-world
+      application_id: 25945
+      exec_timeout: 360s
+      read_timeout: 360s
+      write_timeout: 360s
+    secrets:
+      - github-personal-access-token
+      # - test-secret-key
+      # - test-private-key
