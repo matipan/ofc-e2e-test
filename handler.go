@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/google/go-github/github"
+	"github.com/matipan/derek/auth"
 	handler "github.com/openfaas-incubator/go-function-sdk"
 )
 
@@ -31,19 +32,19 @@ func Handle(req handler.Request) (handler.Response, error) {
 
 // Handle handles a function invocation.
 func Handle(req handler.Request) (res handler.Response, err error) {
-	// cnf, err := NewConfig()
-	// if err != nil {
-	// 	return res, fmt.Errorf("unable to build config: %s", err)
-	// }
+	cnf, err := NewConfig()
+	if err != nil {
+		return res, fmt.Errorf("unable to build config: %s", err)
+	}
 
-	// token, err := auth.MakeAccessTokenForInstallation(cnf.ApplicationID, 694419, cnf.PrivateKey)
-	// if err != nil {
-	// 	return res, fmt.Errorf("unable to obtain access token: %s", err)
-	// }
+	token, err := auth.MakeAccessTokenForInstallation(cnf.ApplicationID, 694419, cnf.PrivateKey)
+	if err != nil {
+		return res, fmt.Errorf("unable to obtain access token: %s", err)
+	}
 
 	ctx := context.Background()
-	// client := MakeClient(ctx, token, cnf)
-	client := MakeUserClient()
+	client := MakeClient(ctx, token, cnf)
+	// client := MakeUserClient()
 	owner, repo, goFilePath := os.Getenv("functionOwner"), os.Getenv("functionRepo"), os.Getenv("goFilePath")
 
 	// Download the file and obtain it's sha. If the file does not exist

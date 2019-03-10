@@ -5,7 +5,7 @@ functions:
   e2e-test:
     lang: golang-http
     handler: ./
-    image: matipan/e2e-test:1.0
+    image: matipan/e2e-test:githubApp
     environment:
       functionOwner: matipan
       functionRepo: hello-world-go
@@ -18,5 +18,5 @@ functions:
       write_timeout: 360s
     secrets:
       - github-personal-access-token
-      # - test-secret-key
-      # - test-private-key
+      - test-secret-key
+      - test-private-key
