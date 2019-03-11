@@ -37,6 +37,7 @@ func Handle(req handler.Request) (res handler.Response, err error) {
 		return res, fmt.Errorf("unable to build config: %s", err)
 	}
 
+	// Create an access token for github app installation number
 	token, err := auth.MakeAccessTokenForInstallation(cnf.ApplicationID, 694419, cnf.PrivateKey)
 	if err != nil {
 		return res, fmt.Errorf("unable to obtain access token: %s", err)
